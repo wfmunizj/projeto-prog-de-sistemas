@@ -20,7 +20,11 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    vetor = inicializaVetor();
+                    System.out.print("Informe o tamanho do vetor: ");
+                    int tamanho = scanner.nextInt();
+                    System.out.print("Informe o valor máximo aleatório: ");
+                    int maximo = scanner.nextInt();
+                    vetor = inicializaVetor(tamanho, maximo);
                     System.out.println("Vetor inicializado com números aleatórios.");
                     System.out.println();
                     break;
@@ -35,40 +39,25 @@ public class Main {
                         System.out.println("Número encontrado no vetor na posição: " + encontrado);
                     } else {
                         System.out.println("Número não encontrado no vetor.");
-
                     }
-
                     break;
                 case 4:
-
                     int maiorNumero = buscarMaiorNumero(vetor);
                     System.out.println("Maior número no vetor: " + maiorNumero);
-
                     break;
                 case 5:
-
                     int mediaPares = calcularMediaPares(vetor);
                     System.out.println("Média dos números pares: " + mediaPares);
-
                     break;
                 case 6:
-                    if (vetor == null) {
-                        System.out.println("O vetor ainda não foi inicializado.");
-                    } else {
-                        double percentualImpares = calcularPercentualImpares(vetor);
-                        System.out.println(percentualImpares);
-                        // System.out.println("Percentual de números ímpares: " + percentualImpares +
-                        // "%");
-                    }
+                    double percentualImpares = calcularPercentualImpares(vetor);
+                    System.out.println("Percentual de números ímpares: " + percentualImpares + "%");
                     break;
                 case 7:
-
-                    if (vetor == null) {
-                        System.out.println("O vetor ainda não foi inicializado.");
-                    } else if (vetor.length <= 2) {
+                    if (vetor.length <= 2) {
                         System.out.println("Não é possível realizar essa opção com o vetor atual.");
                     } else {
-                        double mediaCentralizada = (calcularMediaCentralizada(vetor));
+                        double mediaCentralizada = calcularMediaCentralizada(vetor);
                         System.out.println("Média centralizada dos números: " + mediaCentralizada);
                     }
                     break;
@@ -104,12 +93,8 @@ public class Main {
         System.out.println("0. Sair");
     }
 
-    public static int[] inicializaVetor() {
-        Scanner scanner = new Scanner(System.in);
+    public static int[] inicializaVetor(int tamVetor, int maiorNum) {
         Random random = new Random();
-
-        int tamVetor = scanner.nextInt();
-        int maiorNum = scanner.nextInt();
         int[] vetor = new int[tamVetor];
         for (int i = 0; i < vetor.length; i++) {
             vetor[i] = random.nextInt(maiorNum + 1);
@@ -136,7 +121,6 @@ public class Main {
 
     public static int buscarMaiorNumero(int[] vetor) {
         int maiorNumero = vetor[0];
-
         for (int i = 0; i < vetor.length; i++) {
             if (vetor[i] > maiorNumero) {
                 maiorNumero = vetor[i];
@@ -153,31 +137,24 @@ public class Main {
                 contador++;
                 somatoria += vetor[i];
             }
-
         }
-        return somatoria / contador;
+        return contador == 0 ? 0 : somatoria / contador;
     }
 
     public static int calcularPercentualImpares(int[] vetor) {
         int contadorImpares = 0;
-        int percentualImpares = 0;
         for (int i = 0; i < vetor.length; i++) {
-
             if (vetor[i] % 2 != 0) {
                 contadorImpares++;
             }
-            int tamanhoVetor = vetor.length;
-            percentualImpares = (contadorImpares * 100) / tamanhoVetor;
         }
-        return percentualImpares;
+        int tamanhoVetor = vetor.length;
+        return (contadorImpares * 100) / tamanhoVetor;
     }
 
     public static double calcularMediaCentralizada(int[] vetor) {
-
         int menorNumero = vetor[0];
         int maiorNumero = vetor[0];
-        int soma;
-
         for (int i : vetor) {
             if (i < menorNumero)
                 menorNumero = i;
@@ -185,7 +162,7 @@ public class Main {
                 maiorNumero = i;
         }
 
-        soma = 0;
+        int soma = 0;
         boolean ignoraMenor = false;
         boolean ignoraMaior = false;
 
@@ -203,7 +180,6 @@ public class Main {
 
         int qntElementos = vetor.length - 2;
         return (double) soma / qntElementos;
-
     }
 
     public static boolean verificarSomaDoisNumeros(int[] vetor, int valor) {
