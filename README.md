@@ -26,7 +26,7 @@ O programa permite:
 
 1. Clone o repositório (ou copie o arquivo `Main.java` para sua máquina):
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone https://github.com/wfmunizj/projeto-prog-de-sistemas.git
    ```
 
 2. Compile o arquivo:
