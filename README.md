@@ -1,5 +1,3 @@
----
-
 ```markdown
 # Projeto: Manipulação de Vetores em Java
 
@@ -57,5 +55,3 @@ Menu:
 8. Verificar se dois números somam um valor informado
 0. Sair
 ```
-
----
