@@ -35,55 +35,50 @@ public class Main {
                         System.out.println("Número encontrado no vetor na posição: " + encontrado);
                     } else {
                         System.out.println("Número não encontrado no vetor.");
-                        
+
                     }
 
                     break;
-                // case 4:
-                // if (vetor == null) {
-                // System.out.println("O vetor ainda não foi inicializado.");
-                // } else {
-                // int maior = buscarMaiorNumero(vetor);
-                // System.out.println("Maior número no vetor: " + maior);
-                // }
-                // break;
-                // case 5:
-                // if (vetor == null) {
-                // System.out.println("O vetor ainda não foi inicializado.");
-                // } else {
-                // double mediaPares = calcularMediaPares(vetor);
-                // System.out.println("Média dos números pares: " + mediaPares);
-                // }
-                // break;
-                // case 6:
-                // if (vetor == null) {
-                // System.out.println("O vetor ainda não foi inicializado.");
-                // } else {
-                // double percentualImpares = calcularPercentualImpares(vetor);
-                // System.out.println("Percentual de números ímpares: " + percentualImpares +
-                // "%");
-                // }
-                // break;
-                // case 7:
-                // if (vetor == null) {
-                // System.out.println("O vetor ainda não foi inicializado.");
-                // } else {
-                // double mediaCentralizada = calcularMediaCentralizada(vetor);
-                // System.out.println("Média centralizada dos números: " + mediaCentralizada);
-                // }
-                // break;
-                // case 8:
-                // if (vetor == null) {
-                // System.out.println("O vetor ainda não foi inicializado.");
-                // } else {
-                // System.out.print("Digite o valor a ser verificado: ");
-                // int valor = scanner.nextInt();
-                // boolean existeSoma = verificarSomaDoisNumeros(vetor, valor);
-                // System.out.println(existeSoma ? "Existem dois números que somados resultam no
-                // valor informado."
-                // : "Não existem dois números que somados resultam no valor informado.");
-                // }
-                // break;
+                case 4:
+
+                    int maiorNumero = buscarMaiorNumero(vetor);
+                    System.out.println("Maior número no vetor: " + maiorNumero);
+
+                    break;
+                case 5:
+
+                    int mediaPares = calcularMediaPares(vetor);
+                    System.out.println("Média dos números pares: " + mediaPares);
+
+                    break;
+                case 6:
+                    if (vetor == null) {
+                        System.out.println("O vetor ainda não foi inicializado.");
+                    } else {
+                        double percentualImpares = calcularPercentualImpares(vetor);
+                        System.out.println(percentualImpares);
+                        // System.out.println("Percentual de números ímpares: " + percentualImpares +
+                        // "%");
+                    }
+                    break;
+                case 7:
+
+                    if (vetor == null) {
+                        System.out.println("O vetor ainda não foi inicializado.");
+                    } else if (vetor.length <= 2) {
+                        System.out.println("Não é possível realizar essa opção com o vetor atual.");
+                    } else {
+                        double mediaCentralizada = (calcularMediaCentralizada(vetor));
+                        System.out.println("Média centralizada dos números: " + mediaCentralizada);
+                    }
+                    break;
+                case 8:
+                    System.out.print("Digite o valor a ser verificado: ");
+                    int valor = scanner.nextInt();
+                    boolean existeSoma = verificarSomaDoisNumeros(vetor, valor);
+                    System.out.println(existeSoma ? "Existem dois números que somados resultam no valor informado."
+                            : "Não existem dois números que somados resultam no valor informado.");
+                    break;
                 case 0:
                     System.out.println("Encerrando o programa.");
                     break;
@@ -137,5 +132,88 @@ public class Main {
             }
         }
         return -1;
+    }
+
+    public static int buscarMaiorNumero(int[] vetor) {
+        int maiorNumero = vetor[0];
+
+        for (int i = 0; i < vetor.length; i++) {
+            if (vetor[i] > maiorNumero) {
+                maiorNumero = vetor[i];
+            }
+        }
+        return maiorNumero;
+    }
+
+    public static int calcularMediaPares(int[] vetor) {
+        int contador = 0;
+        int somatoria = 0;
+        for (int i = 0; i < vetor.length; i++) {
+            if (vetor[i] % 2 == 0) {
+                contador++;
+                somatoria += vetor[i];
+            }
+
+        }
+        return somatoria / contador;
+    }
+
+    public static int calcularPercentualImpares(int[] vetor) {
+        int contadorImpares = 0;
+        int percentualImpares = 0;
+        for (int i = 0; i < vetor.length; i++) {
+
+            if (vetor[i] % 2 != 0) {
+                contadorImpares++;
+            }
+            int tamanhoVetor = vetor.length;
+            percentualImpares = (contadorImpares * 100) / tamanhoVetor;
+        }
+        return percentualImpares;
+    }
+
+    public static double calcularMediaCentralizada(int[] vetor) {
+
+        int menorNumero = vetor[0];
+        int maiorNumero = vetor[0];
+        int soma;
+
+        for (int i : vetor) {
+            if (i < menorNumero)
+                menorNumero = i;
+            if (i > maiorNumero)
+                maiorNumero = i;
+        }
+
+        soma = 0;
+        boolean ignoraMenor = false;
+        boolean ignoraMaior = false;
+
+        for (int i : vetor) {
+            if (i == menorNumero && !ignoraMenor) {
+                ignoraMenor = true;
+                continue;
+            }
+            if (i == maiorNumero && !ignoraMaior) {
+                ignoraMaior = true;
+                continue;
+            }
+            soma += i;
+        }
+
+        int qntElementos = vetor.length - 2;
+        return (double) soma / qntElementos;
+
+    }
+
+    public static boolean verificarSomaDoisNumeros(int[] vetor, int valor) {
+        for (int i = 0; i < vetor.length; i++) {
+            for (int j = i + 1; j < vetor.length; j++) {
+                if (vetor[i] + vetor[j] == valor) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
